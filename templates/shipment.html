@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create Shipment Page</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./../static/css/shipment.css" />
+    <script>
+      function numbersonly(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode;
+        if (unicode != 8) {
+          //if the key isn't the backspace key (which we should allow)
+          if (unicode < 48 || unicode > 57)
+            //if not a number
+            alert("Please Enter only Numbers");
+          return false; //disable key press
+        }
+      }
+    </script>
+  </head>
+  <header style="position: fixed; top: 0; width: 100%">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">SCMXpert Lite</a>
+        <span
+          class="d-flex"
+          style="
+            margin-right: 16px;
+            font-size: large;
+            display: flex;
+            justify-content: space-between;
+          "
+        >
+          Hi, <span id="username"></span>
+          <br />
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            style="margin-left: 50px"
+            onclick="logOut()"
+          >
+            Logout
+          </button>
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <body>
+    <div class="box-form">
+      <div class="right">
+        <h5>Create New Shipment</h5>
+        <div class="inputs">
+          <div class="row">
+            <div class="column1">
+              <input
+                type="text"
+                id="invNum"
+                placeholder="Shipment/Invoice Number"
+                required
+              />
+            </div>
+            <div class="column2"></div>
+            <div class="column3">
+              <input
+                type="number"
+                id="poNum"
+                placeholder="PO Number"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column1">
+              <input
+                type="number"
+                id="conNum"
+                placeholder="Container Number"
+                required
+              />
+            </div>
+            <div class="column2"></div>
+            <div class="column3">
+              <input
+                type="number"
+                id="delNum"
+                placeholder="Delivery Number"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column1">
+              <input
+                type="date"
+                id="expdeldate"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  margin-top: 22px;
+                  font-size: 16px;
+                  border: none;
+                  outline: none;
+                  border-bottom: 2px solid #b0b3b9;
+                "
+                placeholder="Expected Delivery Date"
+                required
+              />
+            </div>
+            <div class="column2"></div>
+            <div class="column3">
+              <input
+                type="number"
+                id="ndcNum"
+                placeholder="NDC Number"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column1">
+              <select
+                id="routeDetails"
+                name="route"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  margin-top: 25px;
+                  font-size: 16px;
+                  border: none;
+                  outline: none;
+                  border-bottom: 2px solid #b0b3b9;
+                "
+                th:field="*{route}"
+              >
+                <option value="">Select Route Details</option>
+                <option value="Hyderabad - USA">Hyderabad - USA</option>
+                <option value="Bangalore - UK">Bangalore - UK</option>
+                <option value="Hyderabad - Bangalore">
+                  Hyderabad - Bangalore
+                </option>
+              </select>
+            </div>
+            <div class="column2"></div>
+            <div class="column3">
+              <input
+                type="number"
+                id="batId"
+                placeholder="Batch ID Number"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column1">
+              <select
+                id="goods"
+                name="goods"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  margin-top: 25px;
+                  font-size: 16px;
+                  border: none;
+                  outline: none;
+                  border-bottom: 2px solid #b0b3b9;
+                "
+                th:field="*{goods}"
+              >
+                <option value="">Select Goods Type</option>
+                <option value="Pharma">Pharma</option>
+                <option value="Vaccines">Vaccines</option>
+                <option value="Fish">Fish</option>
+                <option value="Electronics">Electronics</option>
+              </select>
+            </div>
+            <div class="column2"></div>
+            <div class="column3">
+              <input
+                type="number"
+                id="serGoods"
+                placeholder="Serial number of goods"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column1">
+              <select
+                id="device"
+                name="device"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  margin-top: 25px;
+                  font-size: 16px;
+                  border: none;
+                  outline: none;
+                  border-bottom: 2px solid #b0b3b9;
+                "
+              >
+                <option value="">Select Device</option>
+              </select>
+            </div>
+            <div class="column2"></div>
+            <div class="column3">
+              <textarea
+                type="text"
+                id="desc"
+                style="
+                  width: 100%;
+                  padding: 0 6px;
+                  margin-top: 28px;
+                  font-size: 16px;
+                  border: none;
+                  outline: none;
+                  border-bottom: 2px solid #b0b3b9;
+                "
+                placeholder="Shipment Description"
+                required
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 5%" class="row">
+          <div style="float: left; width: 69%; padding: 5px">
+            <button onclick="submitShipment();">Create Shipment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const submitShipment = async () => {
+        var invNum = document.getElementById("invNum").value;
+        var conNum = document.getElementById("conNum").value;
+        var expdeldate = document.getElementById("expdeldate").value;
+        var routeDetails = document.getElementById("routeDetails").value;
+        var goods = document.getElementById("goods").value;
+        var device = document.getElementById("device").value;
+
+        var poNum = document.getElementById("poNum").value;
+        var delNum = document.getElementById("delNum").value;
+        var ndcNum = document.getElementById("ndcNum").value;
+        var batId = document.getElementById("batId").value;
+        var serGoods = document.getElementById("serGoods").value;
+        var desc = document.getElementById("desc").value;
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          shipmentNumber: invNum,
+          containerNumber: conNum,
+          expDelDate: expdeldate,
+          routerDetails: routeDetails,
+          goodsType: goods,
+          device: device,
+          poNumber: poNum,
+          deliveryNumber: delNum,
+          ndcNumber: ndcNum,
+          batchIDNumber: batId,
+          serialNumGoods: serGoods,
+          shipmentDescription: desc,
+        });
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        console.log(raw);
+
+        var config = {
+          method: "post",
+          url: "http://localhost:8000/saveShipment",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: raw,
+        };
+
+        const response = await axios(config);
+        console.log(response);
+        const resp = response.data;
+        console.log(resp);
+
+        if (resp === "success") {
+          //window.location.href = "http://localhost:5500/login.html"
+          alert("Shipment details saved successfully !");
+          window.location.href = "/shipment";
+        } else {
+          alert("Error while saving the shipment details");
+        }
+      };
+      window.addEventListener("load", function () {
+        console.log("All assets are loaded");
+        var un = localStorage.getItem("username");
+        if (un === null || un === undefined) {
+          window.location.href =
+            "/";
+        }
+        var usrname = un.toLocaleUpperCase();
+        document.getElementById("username").innerText = usrname;
+        var selectElement = document.getElementById("device");
+
+        for (var i = 0; i <= 5; i++) {
+          var charsArray = "123456789";
+          var lengthOtp = 5;
+          var index = "";
+          for (j = 0; j <= 4; j++) {
+            index += Math.floor(Math.random() * charsArray.length + 1);
+          }
+          console.log(index);
+          selectElement.add(new Option(index));
+        }
+      });
+
+      const logOut = () => {
+        localStorage.removeItem("username");
+        window.location.href = "/";
+      };
+    </script>
+  </body>
+</html>

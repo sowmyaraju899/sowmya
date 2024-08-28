@@ -1,0 +1,7 @@
+FROM python:3.9
+RUN mkdir /consumer
+WORKDIR /consumer
+COPY ./requirements.txt .
+COPY . .
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+CMD ["python", "kconsumer.py"]

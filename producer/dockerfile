@@ -1,0 +1,7 @@
+FROM python:3.10
+RUN mkdir /producer
+WORKDIR /producer
+COPY ./requirements.txt .
+COPY . .
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+CMD ["python", "kproducer.py"]

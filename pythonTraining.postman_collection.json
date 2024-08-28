@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "ec304e2b-816a-4040-b000-77780331e08e",
+		"name": "pythonTraining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7811295"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fullname\" : \"jai sai\",\r\n    \"username\" : \"jai\",\r\n    \"email\" : \"jaisai@exafluence.com\",\r\n    \"phone\" : 9123456578,\r\n    \"password\" : \"jaisai@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"g\",\r\n    \"password\" : \"Jai@1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveShipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"shipmentNumber\": \"1234\",\r\n            \"poNumber\": \"2582\",  \r\n            \"containerNumber\" : \"112355\",\r\n            \"deliveryNumber\": \"00000\",\r\n            \"expDelDate\": \"22/01/2020\",\r\n            \"ndcNumber\": 58412,\r\n            \"routerDetails\": \"kkk\",\r\n            \"batchIDNumber\": \"005568\",\r\n            \"goodsType\": \"selective\",\r\n            \"serialNumGoods\": \"51554\",\r\n            \"device\": \"dedede\",\r\n            \"shipmentDescription\" : \"cjhbdchwdbucbehacuadjc\"\r\n          }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/saveShipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"saveShipment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KafkaProducer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fullname\" : \"krishna\",\r\n    \"username\" : \"krishna7\",\r\n    \"email\" : \"krishna@gmail.com\",\r\n    \"phone\" : \"9111361738\",\r\n    \"password\" : \"krishna@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/produce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"produce"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

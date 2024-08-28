@@ -1,0 +1,8 @@
+FROM python:3.10 
+RUN mkdir /server
+WORKDIR /server
+COPY ./requirements.txt .
+COPY . .
+EXPOSE 5000
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+CMD ["python", "Server.py"]

@@ -1,0 +1,88 @@
+---
+version: "3"
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - kafka
+  broker:
+    image: confluentinc/cp-kafka:7.0.1
+    container_name: broker
+    ports:
+      # To learn about configuring Kafka for access across networks see
+      # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - kafka
+  scm:
+    image: scm
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    container_name: scm
+    ports:
+      - "8000:8000"
+    depends_on:
+      - broker
+    restart: on-failure
+    networks:
+      - kafka
+  server:
+    image: server
+    build:
+      context: .
+      dockerfile: ./server/dockerfile
+    container_name: server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - scm
+    restart: on-failure
+    volumes:
+      - ./server:/server
+    networks:
+      - kafka
+  producer:
+    image: producer
+    build:
+      context: .
+      dockerfile: ./producer/dockerfile
+    container_name: producer
+    restart: on-failure
+    depends_on:
+      - server
+    volumes:
+      - ./producer:/producer
+    networks:
+      - kafka
+  consumer:
+    image: consumer
+    build:
+      context: .
+      dockerfile: ./consumer/dockerfile
+    container_name: consumer
+    restart: on-failure
+    depends_on:
+      - producer
+    volumes:
+      - ./consumer:/consumer
+    networks:
+      - kafka
+networks:
+  kafka: {}

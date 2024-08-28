@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboards Page</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./../static/css/dashboard.css" />
+  </head>
+  <header style="position: fixed; top: 0; width: 100%">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">SCMXpert Lite</a>
+        <span
+          class="d-flex"
+          style="
+            margin-right: 16px;
+            font-size: large;
+            display: flex;
+            justify-content: space-between;
+          "
+        >
+          Hi, <span id="username"></span>
+          <br />
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            style="margin-left: 50px"
+            onclick="logOut()"
+          >
+            Logout
+          </button>
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <body>
+    <div class="box-form">
+      <div class="right">
+        <h5>Dashboards</h5>
+        <div style="margin-top: 10%"></div>
+        <div class="inputs">
+          <div class="customrow">
+            <div class="column1">
+              <div
+                class="card"
+                onclick="redirect('/shipment')"
+                style="width: 10rem"
+              >
+                <div class="card-body badge bg-secondary hovered">
+                  <h6 class="card-title" style="padding: 7px">
+                    Create Shipment
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div class="column2"></div>
+            <div class="column3">
+              <div
+                class="card"
+                onclick="redirect('/devicedata')"
+                style="width: 10rem"
+              >
+                <div class="card-body badge bg-secondary hovered">
+                  <h6 class="card-title" style="padding: 7px">Device Data</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const redirect = async (a) => {
+        window.location.href = a;
+      };
+
+      window.addEventListener("load", async function () {
+        console.log("All assets are loaded");
+        var un = await localStorage.getItem("username");
+        if (un === null || un === undefined) {
+          window.location.href =
+            "/";
+        }
+        var usrname = un.toLocaleUpperCase();
+        document.getElementById("username").innerText = usrname;
+      });
+
+      const logOut = () => {
+        localStorage.removeItem("username");
+        window.location.href = "/";
+      };
+    </script>
+  </body>
+</html>
