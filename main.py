@@ -1,6 +1,6 @@
 from codecs import charmap_encode
 from fastapi import FastAPI, Request
-#overriding sowmya's comment to raise merge conflict
+#overriding sowmya's comment to raise merge conflict - git practice on merge conflict
 
 import pymongo
 from pymongo import MongoClient
