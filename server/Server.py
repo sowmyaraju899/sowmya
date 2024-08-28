@@ -16,6 +16,9 @@ def server_program():
     host = socket.gethostbyname(serverHostName) #'0.0.0.0' #socket.gethostname()
     port = int(serverPort)  
 
+    print(host)
+    print(port)
+    
     server_socket = socket.socket() 
     server_socket.bind((host, port))
 
