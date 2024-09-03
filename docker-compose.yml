@@ -31,7 +31,7 @@ services:
     networks:
       - kafka
   scm:
-    image: scm
+    image: sowmyaraju/scm
     build:
       context: .
       dockerfile: ./dockerfile
@@ -44,7 +44,7 @@ services:
     networks:
       - kafka
   server:
-    image: server
+    image: sowmyaraju/server
     build:
       context: .
       dockerfile: ./server/dockerfile
@@ -59,7 +59,7 @@ services:
     networks:
       - kafka
   producer:
-    image: producer
+    image: sowmyaraju/producer
     build:
       context: .
       dockerfile: ./producer/dockerfile
@@ -72,7 +72,7 @@ services:
     networks:
       - kafka
   consumer:
-    image: consumer
+    image: sowmyaraju/consumer
     build:
       context: .
       dockerfile: ./consumer/dockerfile
