@@ -15,5 +15,15 @@ pipeline {
                 sh 'docker-compose build' 
             }
         }
+        stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Push docker image') {
+            steps {
+                sh 'docker-compose push'
+            }
+        }
                }
 }
